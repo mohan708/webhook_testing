@@ -20,6 +20,9 @@ const PORT = 5050;
 
 await connectDb();
 
+// Webhook route BEFORE json parser to get raw body
+app.post('/webhooks', express.raw({type: 'application/json'}), clerkWebhooks)
+
 app.use(express.json());
 
 
@@ -27,8 +30,6 @@ app.use(express.json());
 app.get("/", (req,res)=>{
     res.send("server is runnig");
 })
-
-app.post('/webhooks',clerkWebhooks)
 
 app.use("/api/users",userRoutes)
 
