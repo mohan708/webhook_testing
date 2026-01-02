@@ -6,23 +6,29 @@ import User from "../model/user.js";
 export const clerkWebhooks = async (req,res)=>{
 
     console.log("🟢 Received Clerk webhook");
+    console.log("req.body type:", typeof req.body);
+    console.log("req.body:", req.body);
 
     try {
         // create a svik instance with clerk webhook secret.
 
          const whook = new Webhook (process.env.CLERK_WEBHOOK_SECRET_KEY)
-        //  console.log("🟢 Clerk webhook endpoint loaded");
+        
+        if (!req.body) {
+            throw new Error("Request body is undefined");
+        }
 
-        //  verifying Headers
-        const payload = req.body.toString("utf8");
+        // Convert buffer to string if needed
+        const payload = typeof req.body === 'string' ? req.body : req.body.toString("utf8");
+        console.log("Payload:", payload);
 
-    const evt = whook.verify(payload, {
-      "svix-id": req.headers["svix-id"],
-      "svix-timestamp": req.headers["svix-timestamp"],
-      "svix-signature": req.headers["svix-signature"],
-    });
+        const evt = whook.verify(payload, {
+            "svix-id": req.headers["svix-id"],
+            "svix-timestamp": req.headers["svix-timestamp"],
+            "svix-signature": req.headers["svix-signature"],
+        });
 
-    const { data, type } = evt;
+        const { data, type } = evt;
 
         
 
