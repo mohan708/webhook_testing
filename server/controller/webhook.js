@@ -27,6 +27,7 @@ export const clerkWebhooks = async (req, res) => {
           email: data.email_addresses?.[0]?.email_address,
           name: `${data.first_name || ""} ${data.last_name || ""}`.trim(),
           image: data.image_url,
+          
         };
 
         await User.findByIdAndUpdate(data.id, userData, {
