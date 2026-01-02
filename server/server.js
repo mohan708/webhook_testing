@@ -10,15 +10,20 @@ import userRoutes from "./routes/userRoutes.js";
 
 const app = express();
 
-// Webhook route BEFORE json parser to get raw body
-app.post('/webhooks', express.raw({type: 'application/json', limit: '5mb'}), clerkWebhooks)
-
-app.use(express.json());
 
 app.use((req, res, next) => {
   console.log("Incoming request:", req.method, req.url);
   next();
 });
+
+const PORT = 5050;
+
+await connectDb();
+
+// Webhook route BEFORE json parser to get raw body
+app.post('/webhooks', express.raw({type: 'application/json'}), clerkWebhooks)
+
+app.use(express.json());
 
 console.log(process.env.CLERK_WEBHOOK_SECRET_KEY)
 
