@@ -25,7 +25,7 @@ app.post('/webhooks', express.raw({type: 'application/json'}), clerkWebhooks)
 
 app.use(express.json());
 
-
+console.log(process.env.CLERK_WEBHOOK_SECRET_KEY)
 
 app.get("/", (req,res)=>{
     res.send("server is runnig");

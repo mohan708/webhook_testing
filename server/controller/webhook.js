@@ -10,7 +10,7 @@ export const clerkWebhooks = async (req,res)=>{
     try {
         // create a svik instance with clerk webhook secret.
 
-         const whook = new Webhook (process.env.CLERK_WEBHOOK_SECRET)
+         const whook = new Webhook (process.env.CLERK_WEBHOOK_SECRET_KEY)
         //  console.log("🟢 Clerk webhook endpoint loaded");
 
         //  verifying Headers
