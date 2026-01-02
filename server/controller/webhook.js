@@ -82,9 +82,9 @@ export const clerkWebhooks = async (req,res)=>{
 
     } catch (error) {
         // verifying headers 
-        console.log(error.message);
-        res.json({success:false,message: 'webhooks Error' })
-        
+        res.json({success:false, message: error.message })
+       
+         
     }
 
 }
