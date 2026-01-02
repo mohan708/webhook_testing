@@ -16,17 +16,13 @@ export const clerkWebhooks = async (req,res)=>{
         //  verifying Headers
         const payload = req.body.toString("utf8");
 
-        await whook.verify(payload,{
-            "svix-id" : req.headers["svix-id"],
-            "svix-timestamp" : req.headers["svix-timestamp"],
-            "svix-signature" : req.headers["svix-signature"]
-        })
+    const evt = whook.verify(payload, {
+      "svix-id": req.headers["svix-id"],
+      "svix-timestamp": req.headers["svix-timestamp"],
+      "svix-signature": req.headers["svix-signature"],
+    });
 
-    
-
-      
-
-        const {data, type } = req.body
+    const { data, type } = evt;
 
         
 
